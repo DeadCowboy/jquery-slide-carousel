@@ -1,11 +1,3 @@
-/**
- * @title Slide Carousel for jQuery
- * @description Displays carousel items as single slides using CSS3 Animations for transitioning.
- * @version 0.0.3
- * @author Richard Nelson
- * @github https://github.com/DeadCowboy
- */
-
 (function( $ ) {
 
 	$.fn.slideCarousel = function( options ) {
@@ -473,7 +465,7 @@
 			var index = currentIndex - 1;
 			if ( looping && index < 0 ) index = slides.length - 1;
 
-			carousel.slideTo( index, -1 );
+			carousel.slideTo( index, true, -1 );
 
 		};
 
@@ -483,7 +475,7 @@
 			var index = currentIndex + 1;
 			if ( looping && index > slides.length - 1 ) index = 0;
 
-			carousel.slideTo( index, 1 );
+			carousel.slideTo( index, true, 1 );
 
 		};
 
