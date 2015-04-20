@@ -1,3 +1,11 @@
+/**
+ * @title Slide Carousel for jQuery
+ * @description Displays carousel items a singular slides using CSS3 Animations for transitioning.
+ * @version 0.0.4
+ * @author Richard Nelson
+ * @github https://github.com/DeadCowboy
+ */
+
 (function( $ ) {
 
 	$.fn.slideCarousel = function( options ) {
@@ -129,6 +137,20 @@
 
 			// Create Carousel
 			createCarousel();
+
+			// Hide Navigation for Single Slides
+			if ( slides.length <= 1 ) {
+
+				if ( $pips )
+					$pips.hide();
+
+				if ( $navPrev )
+					$navPrev.hide();
+
+				if ( $navNext )
+					$navNext.hide();
+
+			}
 
 			// Set Current Index
 			currentIndex = -1;
