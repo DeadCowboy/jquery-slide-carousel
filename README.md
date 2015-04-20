@@ -6,6 +6,9 @@ Displays carousel items a singular slides using CSS3 Animations for transitionin
 * Example(s)
 
 ## History
+### v0.0.5
+Added CSS animation detection, so that onAnimationEnd is called immediately if not supported.
+
 ### v0.0.4
 Carousel navigation is now hidden if number of slides is 1 or less.
 

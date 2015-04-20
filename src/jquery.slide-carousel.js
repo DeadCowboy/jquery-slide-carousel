@@ -1,7 +1,7 @@
 /**
  * @title Slide Carousel for jQuery
  * @description Displays carousel items a singular slides using CSS3 Animations for transitioning.
- * @version 0.0.4
+ * @version 0.0.5
  * @author Richard Nelson
  * @github https://github.com/DeadCowboy
  */
@@ -33,6 +33,8 @@
 		var styleClasses;
 		var timer;
 		var timerDelay;
+
+		var isAnimationSupported;
 
 
 		// ----- PRIVATE CONSTANTS ----- //
@@ -135,6 +137,9 @@
 			if ( options.onLeave ) carousel.onLeave = options.onLeave;
 			if ( options.onLeaveComplete ) carousel.onLeaveComplete = options.onLeaveComplete;
 
+			// Detect CSS Animation Support
+			isAnimationSupported = detectAnimationSupport();
+
 			// Create Carousel
 			createCarousel();
 
@@ -154,6 +159,35 @@
 
 			// Set Current Index
 			currentIndex = -1;
+
+		};
+
+		function detectAnimationSupport() {
+			log( "detectAnimationSupport" );
+
+			var animation = false;
+			var animationString = "animation";
+			var keyframePrefix = "";
+			var domPrefixes = "Webkit Moz O ms Khtml".split(" ");
+			var pfx  = "";
+
+			if ( $container[0].style.animationName !== undefined ) { animation = true; }    
+
+			if ( animation === false ) {
+
+				for( var i = 0; i < domPrefixes.length; i++ ) {
+
+					if( $container[0].style[ domPrefixes[i] + "AnimationName" ] !== undefined ) {
+						pfx = domPrefixes[ i ];
+						animationString = pfx + "Animation";
+						keyframePrefix = "-" + pfx.toLowerCase() + "-";
+						animation = true;
+						break;
+					}
+				}
+			}
+
+			return animation;
 
 		};
 
@@ -247,7 +281,7 @@
 			};
 
 			// Add Event Listener -or- Call Animation End
-			if ( animated )
+			if ( isAnimationSupported && animated )
 				$slide.on( EVENT_ANIMATION_END, onAnimationEnd );
 			else
 				onAnimationEnd();
@@ -292,7 +326,7 @@
 			};
 
 			// Add Event Listener -or- Call Animation End
-			if ( animated )
+			if ( isAnimationSupported && animated )
 				$slide.on( EVENT_ANIMATION_END, onAnimationEnd );
 			else
 				onAnimationEnd();
