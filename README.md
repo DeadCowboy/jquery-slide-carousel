@@ -46,8 +46,30 @@ var carousel = $( "#carousel" ).slideCarousel( {
 
 
 ### Methods
-(TBD)
+**getAnimating()** (Boolean) Returns true if any slide is currently animating.
 
+**getAutoplay()** (Boolean) Returns the current autoplay value.
+**setAutoplay( value:Boolean )** (Void) Sets the autoplay value, and if set to true starts the autoplay timer.
+
+**getCurrentIndex()** (Number)
+
+**getDuration()** (Number)
+
+**destroy()** (Void)
+
+**enable()** (Void)
+
+**disable()** (Void)
+
+**play()** (Void)
+
+**stop()** (Void)
+
+**playPrev()** (Void)
+
+**playNext()** (Void)
+
+**slideTo( index:Number, animated:Boolean, dir:Number )** (Void)
 
 ## Examples
 (TBD)
