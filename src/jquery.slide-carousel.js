@@ -1,7 +1,7 @@
 /**
  * @title Slide Carousel for jQuery
  * @description Displays carousel items a singular slides using CSS3 Animations for transitioning.
- * @version 0.0.5
+ * @version 0.0.6
  * @author Richard Nelson
  * @github https://github.com/DeadCowboy
  */
@@ -101,12 +101,12 @@
 				pipSelected: "carousel-pip-selected",
 				enter: "carousel-slide-enter",
 				leave: "carousel-slide-leave",
-				enterActive: "carousel-slide-enter-active",
-				leaveActive: "carousel-slide-leave-active",
+				enterEnd: "carousel-slide-enter-end",
+				leaveEnd: "carousel-slide-leave-end",
 				enterReverse: "carousel-slide-enter-reverse",
 				leaveReverse: "carousel-slide-leave-reverse",
-				enterReverseActive: "carousel-slide-enter-reverse-active",
-				leaveReverseActive: "carousel-slide-leave-reverse-active"
+				enterReverseEnd: "carousel-slide-enter-reverse-end",
+				leaveReverseEnd: "carousel-slide-leave-reverse-end"
 			};
 
 			if ( options.styles ) {
@@ -115,16 +115,16 @@
 				if ( options.styles.pipSelected ) styles.pip = options.styles.pipSelected;
 				if ( options.styles.enter ) styles.enter = options.styles.enter;
 				if ( options.styles.leave ) styles.leave = options.styles.leave;
-				if ( options.styles.enterActive ) styles.enterActive = options.styles.enterActive;
-				if ( options.styles.leaveActive ) styles.leaveActive = options.styles.leaveActive;
+				if ( options.styles.enterEnd ) styles.enterEnd = options.styles.enterEnd;
+				if ( options.styles.leaveEnd ) styles.leaveEnd = options.styles.leaveEnd;
 				if ( options.styles.enterReverse ) styles.enterReverse = options.styles.enterReverse;
 				if ( options.styles.leaveReverse ) styles.leaveReverse = options.styles.leaveReverse;
-				if ( options.styles.enterReverseActive ) styles.enterReverseActive = options.styles.enterReverseActive;
-				if ( options.styles.leaveReverseActive ) styles.leaveReverseActive = options.styles.leaveReverseActive;
+				if ( options.styles.enterReverseEnd ) styles.enterReverseEnd = options.styles.enterReverseEnd;
+				if ( options.styles.leaveReverseEnd ) styles.leaveReverseEnd = options.styles.leaveReverseEnd;
 
 			}
 
-			styleClasses = [ styles.enter, styles.leave, styles.enterActive, styles.leaveActive, styles.enterReverse, styles.leaveReverse, styles.enterReverseActive, styles.leaveReverseActive ].join( " " );
+			styleClasses = [ styles.enter, styles.leave, styles.enterEnd, styles.leaveEnd, styles.enterReverse, styles.leaveReverse, styles.enterReverseEnd, styles.leaveReverseEnd ].join( " " );
 
 			// Timer Delay
 			timerDelay = ( options.duration >= 0 ) 
@@ -168,7 +168,7 @@
 			var animation = false;
 			var animationString = "animation";
 			var keyframePrefix = "";
-			var domPrefixes = "Webkit Moz O ms Khtml".split(" ");
+			var domPrefixes = [ "Webkit", "Moz", "O", "ms", "Khtml" ];
 			var pfx  = "";
 
 			if ( $container[0].style.animationName !== undefined ) { animation = true; }    
@@ -206,7 +206,7 @@
 				$slide = $( this );
 
 				// Hide Slide
-				$slide.addClass( styles.leaveActive );
+				$slide.addClass( styles.leaveEnd );
 
 				// Add Slide to Array
 				slides.push( {
@@ -251,28 +251,17 @@
 			var $slide = $( slides[ index ].element );
 			$slide.removeClass( styleClasses );
 
-			if ( dir > 0 )
-				$slide.addClass( styles.enter );
-			else
-				$slide.addClass( styles.enterReverse );
-
 			// Call onEnter
 			if ( typeof( carousel.onEnter ) == "function" )
 				carousel.onEnter( index );
 
 			// Animation End Function
-			var onAnimationEnd = function( e ) {
-				log( "onAnimationEnd" );
+			var onShowAnimationEnd = function( e ) {
+				log( "onShowAnimationEnd" );
 
 				animatingShow = false;
 
-				$slide.off( EVENT_ANIMATION_END, onAnimationEnd );
-				$slide.removeClass( styleClasses );
-
-				if ( dir > 0 )
-					$slide.addClass( styles.enterActive );
-				else
-					$slide.addClass( styles.enterReverseActive );
+				$slide.off( EVENT_ANIMATION_END, onShowAnimationEnd );
 
 				// Call onEnterComplete
 				if ( typeof( carousel.onEnterComplete ) == "function" )
@@ -280,11 +269,27 @@
 
 			};
 
-			// Add Event Listener -or- Call Animation End
-			if ( isAnimationSupported && animated )
-				$slide.on( EVENT_ANIMATION_END, onAnimationEnd );
-			else
-				onAnimationEnd();
+			// Add Class & Event Listener -or- Call Animation End
+			if ( isAnimationSupported && animated ) {
+
+				if ( dir > 0 )
+					$slide.addClass( styles.enter );
+				else
+					$slide.addClass( styles.enterReverse );
+
+				$slide.on( EVENT_ANIMATION_END, onShowAnimationEnd );
+
+
+			} else {
+
+				if ( dir > 0 )
+					$slide.addClass( styles.enterEnd );
+				else
+					$slide.addClass( styles.enterReverseEnd );
+
+				onShowAnimationEnd();
+
+			}
 
 		};
 
@@ -296,28 +301,17 @@
 			var $slide = $( slides[ index ].element );
 			$slide.removeClass( styleClasses );
 
-			if ( dir > 0 )
-				$slide.addClass( styles.leave );
-			else
-				$slide.addClass( styles.leaveReverse );
-
 			// Call onLeave
 			if ( typeof( carousel.onLeave ) == "function" )
 				carousel.onLeave( index );			
 
 			// Animation End Function
-			var onAnimationEnd = function( e ) {
-				log( "onAnimationEnd" );
+			var onHideAnimationEnd = function( e ) {
+				log( "onHideAnimationEnd" );
 
 				animatingHide = false;
 
-				$slide.off( EVENT_ANIMATION_END, onAnimationEnd );
-				$slide.removeClass( styleClasses );
-
-				if ( dir > 0 )
-					$slide.addClass( styles.leaveActive );
-				else
-					$slide.addClass( styles.leaveReverseActive );
+				$slide.off( EVENT_ANIMATION_END, onHideAnimationEnd );
 
 				// Call onLeaveComplete
 				if ( typeof( carousel.onLeaveComplete ) == "function" )
@@ -325,11 +319,26 @@
 
 			};
 
-			// Add Event Listener -or- Call Animation End
-			if ( isAnimationSupported && animated )
-				$slide.on( EVENT_ANIMATION_END, onAnimationEnd );
-			else
-				onAnimationEnd();
+			// Add Class & Event Listener -or- Call Animation End
+			if ( isAnimationSupported && animated ) {
+
+				if ( dir > 0 )
+					$slide.addClass( styles.leave );
+				else
+					$slide.addClass( styles.leaveReverse );
+
+				$slide.on( EVENT_ANIMATION_END, onHideAnimationEnd );
+
+			} else {
+
+				if ( dir > 0 )	
+					$slide.addClass( styles.leaveEnd );
+				else
+					$slide.addClass( styles.leaveReverseEnd );
+
+				onHideAnimationEnd();
+
+			}
 
 		};
 
