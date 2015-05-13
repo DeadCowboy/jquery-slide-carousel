@@ -22,8 +22,8 @@
 		var $pips;
 
 		var animatingShow;
-		var animatingHide;		
-		var autoplay;		
+		var animatingHide;
+		var autoplay;
 		var currentIndex;
 		var duration;
 		var looping;
