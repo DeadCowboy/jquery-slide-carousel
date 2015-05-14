@@ -4,7 +4,7 @@ Displays carousel items a singular slides using CSS3 Animations for transitionin
 
 ## Documentation
 ### Simple Usage
-The following example would create a carousel using mostly default values, but setting the autoplay and looping to true as well as the duration to 6 seconds.
+The following example would create a carousel using mostly default values, but setting the autoplay and looping to true as well as the duration to 6 seconds.  Calling the plugin returns a carousel instance.
 
 ```javascript
 var carousel = $( "#carousel" ).slideCarousel( { 
@@ -42,34 +42,55 @@ var carousel = $( "#carousel" ).slideCarousel( {
 
 
 #### Style Options
-(TBD)
+The following are the properties of the style parameter option used when creating a new carousel.
+
+**pip** (String) The CSS class to assign pips.  Default `carousel-pip`.
+
+**pipSelected** (String) The CSS class to assign the currently selected pip.  Default `carousel-pip-selected`.
+
+**enter** (String) The CSS class added to slides when they enter in a forward direction.  Default `carousel-slide-enter`.
+
+**leave** (String) The CSS class added to slides when they leave in a forward direction.  Default `carousel-slide-leave`.
+
+**enterReverse** (String) The CSS class added to slides when they enter in a backward direction.  Default `carousel-slide-enter-reverse`.
+
+**leaveReverse** (String) The CSS class added to slides when they leave in a backward direction.  Default `carousel-slide-leave-reverse`.
+
+**enterEnd** (String) The CSS class added to slides when they enter in a forward direction without animation.  Default `carousel-slide-enter-end`.
+
+**leaveEnd** (String) The CSS class added to slides when they leave in a forward direction without animation.  Default `carousel-slide-leave-end`.
+
+**enterReverseEnd** (String) The CSS class added to slides when they enter in a backward direction without animation.  Default `carousel-slide-enter-reverse-end`.
+
+**leaveReverseEnd** (String) The CSS class added to slides when they leave in a backward direction without animation.  Default `carousel-slide-leave-reverse-end`.
 
 
 ### Methods
 **getAnimating()** (Boolean) Returns true if any slide is currently animating.
 
 **getAutoplay()** (Boolean) Returns the current autoplay value.
-**setAutoplay( value:Boolean )** (Void) Sets the autoplay value, and if set to true starts the autoplay timer.
 
-**getCurrentIndex()** (Number)
+**setAutoplay( value:Boolean )** (Void) Sets the autoplay value.  If set to true starts the autoplay timer, else it stops the autoplay timer.
 
-**getDuration()** (Number)
+**getCurrentIndex()** (Number) Returns the index number of the currently shown slide.
 
-**destroy()** (Void)
+**getDuration()** (Number) Returns the time in milleseconds that each slide holds before it autoplays to the next slide.
 
-**enable()** (Void)
+**destroy()** (Void) Destroys the carousel.
 
-**disable()** (Void)
+**enable()** (Void) Turns on interaction for navigation buttons and pips.
 
-**play()** (Void)
+**disable()** (Void) Turns off interaction for navigation buttons and pips.
 
-**stop()** (Void)
+**play()** (Void) Starts the autoplay timer.
 
-**playPrev()** (Void)
+**stop()** (Void) Stops the autoplay timer.
 
-**playNext()** (Void)
+**playPrev()** (Void) Shows the previous slide.
 
-**slideTo( index:Number, animated:Boolean, dir:Number )** (Void)
+**playNext()** (Void) Shows the next slide.
+
+**slideTo( index:Number, animated:Boolean, dir:Number )** (Void) Shows the slide designated by the `index` parameter.  If the `animated` parameter is set to true, then the slides will be assigned CSS classes that use CSS Animation.  Otherwise, the slides will be assinged the CSS classes without CSS Animation (e.g. "enterEnd", "leaveEnd", etc).  The `dir` designates the direction the animation should go in.  A positive number will designate a forward direction (e.g. "enter", "leave"), while a negative number will designate a backward direction (e.g. "enterReverse", "leaveReverse").
 
 ## Examples
 (TBD)
