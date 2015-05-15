@@ -97,6 +97,9 @@ The following are the properties of the style parameter option used when creatin
 
 
 ## History
+### v0.0.7
+Made improvements to the code so that it is more [JSHint](http://jshint.com/) friendly, however more could be done.
+
 ### v0.0.6
 Removed enter and leave active styles.  Added enter and leave end styles, and changed logic so these are used whenever a slide is changed with the animated parameter is false.
 

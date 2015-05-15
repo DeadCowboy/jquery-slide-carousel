@@ -1,7 +1,7 @@
 /**
  * @title Slide Carousel for jQuery
  * @description Displays carousel items a singular slides using CSS3 Animations for transitioning.
- * @version 0.0.6
+ * @version 0.0.7
  * @author Richard Nelson
  * @github https://github.com/DeadCowboy
  */
@@ -46,7 +46,7 @@
 
 			console.log( "%c SlideCarousel: " + obj + " ", "background:#369;color:#fff;" );
 
-		};
+		}
 
 		function init( elem, options ) {
 			log( "init" );
@@ -62,38 +62,38 @@
 			animatingHide = false;
 
 			// Autoplay
-			autoplay = ( options.autoplay != undefined )
-				? options.autoplay
-				: false;
+			autoplay = ( options.autoplay !== undefined ) ?
+				options.autoplay :
+				false;
 
 			// Looping
-			looping = ( options.looping != undefined )
-				? options.looping
-				: false;
+			looping = ( options.looping !== undefined )	? 
+				options.looping :
+				false;
 
 			// Set Slide Selector
-			slideSelector = ( options.slideSelector )
-				? options.slideSelector
-				: ".carousel-slide";
+			slideSelector = ( options.slideSelector ) ? 
+				options.slideSelector :
+				".carousel-slide";
 
 			// Set Nav Elements
-			$navPrev = ( options.navPrevSelector ) 
-				? $container.find( options.navPrevSelector )
-				: $container.find( "#carousel-nav-prev" );
+			$navPrev = ( options.navPrevSelector ) ?
+				$container.find( options.navPrevSelector ) :
+				$container.find( "#carousel-nav-prev" );
 
-			$navNext = ( options.navNextSelector ) 
-				? $container.find( options.navNextSelector )
-				: $container.find( "#carousel-nav-next" );
+			$navNext = ( options.navNextSelector ) ?
+				$container.find( options.navNextSelector ) :
+				$container.find( "#carousel-nav-next" );
 
-			if ( $navPrev.length == 0 ) $navPrev = undefined;
-			if ( $navNext.length == 0 ) $navNext = undefined;
+			if ( $navPrev.length === 0 ) $navPrev = undefined;
+			if ( $navNext.length === 0 ) $navNext = undefined;
 
 			// Set Pips Container Element
-			$pips = ( options.pipsSelector ) 
-				? $container.find( options.pipsSelector )
-				: $container.find( "#carousel-pips" );
+			$pips = ( options.pipsSelector ) ?
+				$container.find( options.pipsSelector ) :
+				$container.find( "#carousel-pips" );
 
-			if ( $pips.length == 0 ) $pips = undefined;
+			if ( $pips.length === 0 ) $pips = undefined;
 
 			// Set Styles
 			styles = {
@@ -127,9 +127,9 @@
 			styleClasses = [ styles.enter, styles.leave, styles.enterEnd, styles.leaveEnd, styles.enterReverse, styles.leaveReverse, styles.enterReverseEnd, styles.leaveReverseEnd ].join( " " );
 
 			// Timer Delay
-			timerDelay = ( options.duration >= 0 ) 
-				? options.duration
-				: 10000;
+			timerDelay = ( options.duration >= 0 ) ?
+				options.duration :
+				10000;
 
 			// Callbacks
 			if ( options.onEnter ) carousel.onEnter = options.onEnter;
@@ -160,7 +160,7 @@
 			// Set Current Index
 			currentIndex = -1;
 
-		};
+		}
 
 		function detectAnimationSupport() {
 			log( "detectAnimationSupport" );
@@ -189,7 +189,7 @@
 
 			return animation;
 
-		};
+		}
 
 		function createCarousel() {
 			log( "createCarousel" );
@@ -225,7 +225,7 @@
 
 			} );
 
-		};
+		}
 
 		function getSlideById( id ) {
 
@@ -234,14 +234,14 @@
 
 			for ( i = 0; i < length; i++ ) {
 
-				if ( slides[i].id == id )
+				if ( slides[i].id === id )
 					return slides[i];
 
 			}
 
 			return null;
 
-		};
+		}
 
 		function showSlide( index, animated, dir ) {
 			log( "showSlide: " + index );
@@ -252,7 +252,7 @@
 			$slide.removeClass( styleClasses );
 
 			// Call onEnter
-			if ( typeof( carousel.onEnter ) == "function" )
+			if ( typeof( carousel.onEnter ) === "function" )
 				carousel.onEnter( index );
 
 			// Animation End Function
@@ -264,7 +264,7 @@
 				$slide.off( EVENT_ANIMATION_END, onShowAnimationEnd );
 
 				// Call onEnterComplete
-				if ( typeof( carousel.onEnterComplete ) == "function" )
+				if ( typeof( carousel.onEnterComplete ) === "function" )
 					carousel.onEnterComplete( index );
 
 			};
@@ -291,7 +291,7 @@
 
 			}
 
-		};
+		}
 
 		function hideSlide( index, animated, dir ) {
 			log( "hideSlide: " + index );
@@ -302,7 +302,7 @@
 			$slide.removeClass( styleClasses );
 
 			// Call onLeave
-			if ( typeof( carousel.onLeave ) == "function" )
+			if ( typeof( carousel.onLeave ) === "function" )
 				carousel.onLeave( index );			
 
 			// Animation End Function
@@ -314,7 +314,7 @@
 				$slide.off( EVENT_ANIMATION_END, onHideAnimationEnd );
 
 				// Call onLeaveComplete
-				if ( typeof( carousel.onLeaveComplete ) == "function" )
+				if ( typeof( carousel.onLeaveComplete ) === "function" )
 					carousel.onLeaveComplete( index );
 
 			};
@@ -340,7 +340,7 @@
 
 			}
 
-		};
+		}
 
 		function updatePips() {
 			log( "updatePips" );
@@ -355,7 +355,7 @@
 
 			}
 
-		};
+		}
 
 
 		// ----- PRIVATE EVENT LISTENERS ----- //
@@ -364,21 +364,21 @@
 
 			carousel.playNext();
 
-		};
+		}
 
 		function onNavPrevClick( e ) {
 			log( "onNavPrevClick" );
 
 			carousel.playPrev();
 
-		};
+		}
 
 		function onNavNextClick( e ) {
 			log( "onNavNextClick" );
 
 			carousel.playNext();
 
-		};
+		}
 
 		function onPipClick( e ) {
 			log( "onPipClick" );
@@ -386,7 +386,7 @@
 			var $pip = $( e.currentTarget );
 			carousel.slideTo( $pip.index() );
 
-		};
+		}
 
 
 		/*************************************************
@@ -549,16 +549,16 @@
 
 			if ( index >= 0 && 
 				 index < slides.length &&
-				 index != currentIndex ) {
+				 index !== currentIndex ) {
 
 				// Direction
-				if ( dir == undefined )
+				if ( dir === undefined )
 					dir = ( index - currentIndex > 0 ) ? 1 : -1;
 
 				// Animated
-				animated = ( animated != undefined )
-					? animated
-					: true;
+				animated = ( animated !== undefined ) ?
+					animated :
+					true;
 
 				// Stop
 				carousel.stop();
@@ -596,7 +596,7 @@
 		return carousel;
 
 
-	}
+	};
 
 }( jQuery ));
 
